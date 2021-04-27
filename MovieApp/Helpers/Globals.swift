@@ -8,7 +8,9 @@
 import Foundation
 
 
-
+enum storyBoardIDS  : String {
+    case homePageTabBarController = "HomePageTabBarController"
+}
 
 enum assetNames : String {
     case movieLogo = "movieAppLogo"
@@ -22,6 +24,19 @@ struct APIAuth : Codable {
     static let accountID = 0
 }
 
+enum MediaType: String {
+    case all = "all"
+    case movie = "movie"
+    case tv = "tv"
+    case person = "person"
+}
+
+enum TimeWindows : String {
+    case day = "day"
+    case week = "week"
+}
+
+
 
 enum movieDBURL   {
     static let baseUrl = "https://api.themoviedb.org/3"
@@ -32,6 +47,7 @@ enum movieDBURL   {
     case requestSession
     case requestGuestSession
     
+    case requestTrendingMovies(mediaType: MediaType)
     
     var url : URL? {
         guard let url = URL(string: self.stringUrl) else {
@@ -53,7 +69,9 @@ enum movieDBURL   {
             
         case .requestGuestSession:
             return movieDBURL.baseUrl + "/authentication/guest_session/new" + movieDBURL.apiKeyParameter + APIAuth.ApiKey
-            
+        
+        case .requestTrendingMovies(let mediaType):
+            return movieDBURL.baseUrl + "/trending/" + mediaType.rawValue + "/" + TimeWindows.week.rawValue + movieDBURL.apiKeyParameter + APIAuth.ApiKey
         }
     }
     

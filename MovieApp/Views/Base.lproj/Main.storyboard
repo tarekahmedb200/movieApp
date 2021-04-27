@@ -123,11 +123,70 @@
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="89.673913043478265"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="5Bi-zi-Smn">
+            <objects>
+                <viewController id="yva-hX-2vW" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gbm-jF-aQm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GMD-rt-eCe">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <color key="barTintColor" white="0.0" alpha="0.59181558098591547" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Home Page" largeTitleDisplayMode="always" id="VRv-5E-gxV"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SQV-Mp-PMI"/>
+                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                        <constraints>
+                            <constraint firstItem="GMD-rt-eCe" firstAttribute="trailing" secondItem="SQV-Mp-PMI" secondAttribute="trailing" id="0W5-xJ-U23"/>
+                            <constraint firstItem="GMD-rt-eCe" firstAttribute="leading" secondItem="SQV-Mp-PMI" secondAttribute="leading" id="ew0-s9-S6e"/>
+                            <constraint firstItem="GMD-rt-eCe" firstAttribute="top" secondItem="SQV-Mp-PMI" secondAttribute="top" id="oqt-24-IyK"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="nak-Zw-umR">
+                        <color key="badgeColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XSd-jv-Ly9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1981" y="-227"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="ToT-oi-Jix">
+            <objects>
+                <tabBarController storyboardIdentifier="HomePageTabBarController" id="uQB-d0-gum" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="17E-Xf-LNX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="labelColor"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="yva-hX-2vW" kind="relationship" relationship="viewControllers" id="2iO-qR-BPC"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zkQ-aE-kNB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1088" y="76"/>
+        </scene>
     </scenes>
     <resources>
         <image name="movieAppLogo" width="512" height="512"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -60,6 +60,7 @@ class LoginViewController: UIViewController {
                     break
                 case .loginSucceeded:
                     self.toggleControls(enable: true)
+                    self.navigateToHomePageTabBarViewController()
                 case .loginFailed(let errorMessage):
                     self.toggleControls(enable: true)
                     AlertMessages.shared.showMessage(title: "Error", message: errorMessage, in: self)
@@ -90,8 +91,17 @@ class LoginViewController: UIViewController {
                 self.activityIndicator.stopAnimating()
             }
         }
+    }
+    
+    
+    private func navigateToHomePageTabBarViewController() {
+        DispatchQueue.main.async {
+            if let homePageTabBarViewController = self.storyboard?.instantiateViewController(identifier: storyBoardIDS.homePageTabBarController.rawValue) as? UITabBarController {
+                homePageTabBarViewController.modalPresentationStyle = .fullScreen
+                self.present(homePageTabBarViewController, animated: true, completion: nil)
+            }
+        }
         
-       
     }
     
    
