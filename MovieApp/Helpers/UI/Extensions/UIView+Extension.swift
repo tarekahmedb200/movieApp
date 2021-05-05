@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension UIButton {
+extension UIView {
     
     func addRadius(by radius: CGFloat)   {
         self.layer.cornerRadius = radius
