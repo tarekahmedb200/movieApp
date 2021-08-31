@@ -20,11 +20,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var EnterAsGuestButton: UIButton!
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupObservers()
         setupTextFieldsObervers()
+        navigateToHomeScreen()
     }
 
     @IBAction func loginButtonClicked(_ sender: Any) {
@@ -32,13 +36,25 @@ class LoginViewController: UIViewController {
         guard  let username = self.userNameTextField.text , let password = self.passwordTextField.text else {
             return
         }
-        
+        UserDefaults.standard.setValue(username, forKey: "username")
+        UserDefaults.standard.setValue(password, forKey: "password")
         viewModel.onAction(action: .clickLoginButton(userName: username, password: password))
     }
     
     @IBAction func enterAsGuestButton(_ sender: Any) {
         self.toggleControls(enable: false)
         viewModel.onAction(action: .clickEnterAsGuestButton)
+    }
+    
+    
+    
+    private func navigateToHomeScreen() {
+        guard  let userName = UserDefaults.standard.string(forKey: "username") ,
+               let password = UserDefaults.standard.string(forKey: "password")  else {
+            return
+        }
+        viewModel.onAction(action: .clickLoginButton(userName: userName, password: password))
+        
     }
     
     

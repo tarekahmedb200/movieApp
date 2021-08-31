@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,8 +17,8 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="zXc-ye-KlH">
-                        <rect key="frame" x="0.0" y="48" width="425" height="352"/>
-                        <color key="backgroundColor" red="0.22352941176470587" green="0.22352941176470587" blue="0.22352941176470587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="0.0" y="37" width="425" height="363"/>
+                        <color key="backgroundColor" red="0.031372549020000001" green="0.08235294118" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="1" id="yT5-L7-R9q">
                             <size key="itemSize" width="200" height="300"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -27,39 +26,26 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UqB-PO-DHM">
-                        <rect key="frame" x="0.0" y="0.0" width="425" height="33"/>
-                        <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zPV-Og-rwz">
-                                <rect key="frame" x="8" y="1" width="217" height="32"/>
-                                <segments>
-                                    <segment title="Movies"/>
-                                    <segment title="Tv Shows"/>
-                                </segments>
-                                <color key="selectedSegmentTintColor" red="0.22352941179999999" green="0.22352941179999999" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="segmentControlValueChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="Gc5-Fk-21e"/>
-                                </connections>
-                            </segmentedControl>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="33" id="6la-7f-l9v"/>
-                            <constraint firstItem="zPV-Og-rwz" firstAttribute="leading" secondItem="UqB-PO-DHM" secondAttribute="leading" constant="8" id="KVm-ZL-t0R"/>
-                            <constraint firstItem="zPV-Og-rwz" firstAttribute="top" secondItem="UqB-PO-DHM" secondAttribute="top" constant="1" id="Wmi-tY-iON"/>
-                            <constraint firstAttribute="bottom" secondItem="zPV-Og-rwz" secondAttribute="bottom" constant="1" id="Xop-HH-bvD"/>
-                            <constraint firstAttribute="trailing" secondItem="zPV-Og-rwz" secondAttribute="trailing" constant="200" id="wek-dY-4gc"/>
-                        </constraints>
-                    </view>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Zar-09-rOO">
+                        <rect key="frame" x="0.0" y="4" width="211" height="32"/>
+                        <segments>
+                            <segment title="Movies"/>
+                            <segment title="Tv Shows"/>
+                        </segments>
+                        <connections>
+                            <action selector="segmentControlValueChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="kzV-qz-Z1q"/>
+                        </connections>
+                    </segmentedControl>
                 </subviews>
+                <color key="backgroundColor" red="0.031372549020000001" green="0.08235294118" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="UqB-PO-DHM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="B9i-N4-QfH"/>
-                    <constraint firstItem="zXc-ye-KlH" firstAttribute="top" secondItem="UqB-PO-DHM" secondAttribute="bottom" constant="15" id="Pmf-lL-POy"/>
-                    <constraint firstItem="UqB-PO-DHM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="UIC-qK-2mr"/>
+                    <constraint firstAttribute="trailing" secondItem="Zar-09-rOO" secondAttribute="trailing" constant="214" id="30n-XZ-eXi"/>
+                    <constraint firstItem="Zar-09-rOO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="4iU-q1-FvK"/>
+                    <constraint firstItem="Zar-09-rOO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="Fy5-Zs-xOC"/>
                     <constraint firstAttribute="bottom" secondItem="zXc-ye-KlH" secondAttribute="bottom" id="bly-5C-j4l"/>
+                    <constraint firstItem="zXc-ye-KlH" firstAttribute="top" secondItem="Zar-09-rOO" secondAttribute="bottom" constant="2" id="cfA-ZZ-TXl"/>
                     <constraint firstItem="zXc-ye-KlH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="eRY-dL-qAQ"/>
                     <constraint firstAttribute="trailing" secondItem="zXc-ye-KlH" secondAttribute="trailing" id="gml-IU-QPA"/>
-                    <constraint firstAttribute="trailing" secondItem="UqB-PO-DHM" secondAttribute="trailing" id="mmO-Qi-Pkf"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -69,9 +55,4 @@
             <point key="canvasLocation" x="157.24637681159422" y="183.48214285714286"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

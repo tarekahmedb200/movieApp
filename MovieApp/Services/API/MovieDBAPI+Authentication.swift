@@ -148,5 +148,39 @@ class MovieDBAPI {
         }.resume()
     }
     
+    
+    static func deleteSessionID(completion: @escaping (Bool,Error?) -> Void) {
+        guard  let url = movieDBURL.deleteSession.url else {
+            return
+        }
+        
+        do {
+            var request = URLRequest(url: url)
+            request.httpMethod = "DELETE"
+            let encoder = JSONEncoder()
+            let body = LogoutRequest(sessionID: APIAuth.requestToken)
+            request.httpBody = try encoder.encode(body)
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                guard let _ = data else {
+                    completion(false,error)
+                    return
+                }
+                
+                APIAuth.requestToken = ""
+                APIAuth.sessionID = ""
+                UserDefaults.standard.setValue(nil, forKey: "username")
+                UserDefaults.standard.setValue(nil, forKey: "password")
+                completion(true,nil)
+                
+            }.resume()
+        }catch {
+            completion(false,error)
+        }
+    }
+    
+    
+    
      
 }

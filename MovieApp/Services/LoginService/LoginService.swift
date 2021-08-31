@@ -31,6 +31,14 @@ class LoginService {
     }
     
     
-    
+    static func logout(completion:@escaping (Bool,Error?)-> Void) {
+        MovieDBAPI.deleteSessionID { (success, error) in
+            if success {
+                completion(true,nil)
+            }else {
+                completion(false,error)
+        }
+        }
+    }
     
 }
