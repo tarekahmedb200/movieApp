@@ -14,13 +14,8 @@ class UserMediaPreferenceCell: UITableViewCell {
     
     func configureCell(media:Media) {
         if let moviePosterPath = media.posterPath {
-            UtitlyManager.shared.getPosterImage(with: moviePosterPath) { (data, error) in
-                guard error == nil , let data = data else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    self.MediaImageView.image = UIImage(data: data)
-                }
+            DispatchQueue.main.async {
+                self.MediaImageView.kf.setImage(with: movieDBURL.getPosterImage(path: moviePosterPath).url)
             }
         }
         

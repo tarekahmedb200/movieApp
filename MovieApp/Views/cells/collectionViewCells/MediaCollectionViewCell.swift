@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MediaCollectionViewCell: UICollectionViewCell {
 
@@ -22,19 +23,12 @@ class MediaCollectionViewCell: UICollectionViewCell {
     func configureCell(movie:Media) {
         self.mediaTitleLabel.text = movie.mediaTitle
         if let moviePosterPath = movie.posterPath {
-            UtitlyManager.shared.getPosterImage(with: moviePosterPath) { (data, error) in
-                guard error == nil , let data = data else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    self.mediaImageView.image = UIImage(data: data)
-                }
-               
+            DispatchQueue.main.async {
+                self.mediaImageView.kf.setImage(with: movieDBURL.getPosterImage(path: moviePosterPath).url)
             }
+            
         }
-      
     }
-    
     
     override func prepareForReuse() {
         DispatchQueue.main.async {

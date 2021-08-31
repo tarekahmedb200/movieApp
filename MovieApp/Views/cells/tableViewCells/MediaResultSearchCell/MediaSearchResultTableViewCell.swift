@@ -21,13 +21,8 @@ class MediaSearchResultTableViewCell: UITableViewCell {
 
     func configureCell(with media:Media) {
         if let moviePosterPath = media.posterPath {
-            UtitlyManager.shared.getPosterImage(with: moviePosterPath) { (data, error) in
-                guard error == nil , let data = data else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    self.mediaImageView.image = UIImage(data: data)
-                }
+            DispatchQueue.main.async {
+                self.mediaImageView.kf.setImage(with: movieDBURL.getPosterImage(path: moviePosterPath).url)
             }
         }
         self.mediaImageView.addRadius(by: 10)
