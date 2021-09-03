@@ -36,9 +36,12 @@ class MediaTableViewCell: UITableViewCell {
                 case .loadingMedia:
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
-                        
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         self.collectionView.scrollToItem(at: IndexPath(index: 0), at: .left, animated: true)
                     }
+                    
                 case .errorLoadingMedia(let errorMessage):
                     DispatchQueue.main.async {
                         print(errorMessage)

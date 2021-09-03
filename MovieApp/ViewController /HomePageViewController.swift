@@ -44,10 +44,12 @@ class HomePageViewController: UIViewController {
         if let searchResultViewController = storyboard?.instantiateViewController(identifier: "SearchResultViewController") as? SearchResultViewController {
             let searchResultViewModel = SearchResultViewModel()
             let searchController  = UISearchController(searchResultsController: searchResultViewController)
-            searchResultViewController.viewModel = searchResultViewModel
+            if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+                textField.backgroundColor = #colorLiteral(red: 0.05599083297, green: 0.2374675888, blue: 0.4338702629, alpha: 1)
+            }
             
+            searchResultViewController.viewModel = searchResultViewModel
             searchController.searchResultsUpdater = searchResultViewController
-           // searchController.delegate  = searchResultViewController
             self.navigationItem.searchController = searchController
         }
     }

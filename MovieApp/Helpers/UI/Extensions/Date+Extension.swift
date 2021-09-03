@@ -12,11 +12,18 @@ import UIKit
 
 extension Date {
     
-    static func  getTimeComponents(with interval:Int) -> String? {
+    
+    static  func minutesToHoursMinutes (minutes : Int) -> (hours:Int, minutes:Int) {
+      return (minutes / 60, minutes % 60)
+    }
+    
+    
+    
+    static func  getTimeComponents(with interval:Int64) -> String? {
         
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour,.minute,.second]
-        formatter.unitsStyle = .positional
+        formatter.unitsStyle = .short
         
         guard  let dateString = formatter.string(from: TimeInterval(interval)) else {
             return nil

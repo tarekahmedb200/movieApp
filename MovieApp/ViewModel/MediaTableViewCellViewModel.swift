@@ -80,7 +80,10 @@ class MediaTableViewCellViewModel {
             }
             
             self.mediaArray = mediaArray
-            self.viewState.accept(.loadingMedia)
+            if mediaArray.count > 0 {
+                self.viewState.accept(.loadingMedia)
+            }
+          
         }
     }
     

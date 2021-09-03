@@ -37,10 +37,8 @@ struct Media : Codable {
     }
     
     var mediaRunTimeFormmated : String {
-        guard let runTimeString = Date.getTimeComponents(with: runTime ?? 0) else {
-            return ""
-        }
-        return runTimeString
+        let runTimeString = Date.minutesToHoursMinutes(minutes: runTime ?? 0)
+        return "\(runTimeString.hours):\(runTimeString.minutes)"
     }
     
     
@@ -49,12 +47,15 @@ struct Media : Codable {
         guard let genres = genres else {
             return ""
         }
-        genres.forEach({
-            genresNames.append($0.name)
+        genresNames =  genres.map({
+            return $0.name
         })
         
         return genresNames.joined(separator: ",")
     }
+    
+    
+    
     
     
     enum CodingKeys : String , CodingKey {

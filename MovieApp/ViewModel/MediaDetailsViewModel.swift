@@ -10,22 +10,24 @@ import RxSwift
 import RxCocoa
 
 class MediaDetailsViewModel {
-    weak var delegate: MediaDetailsViewModelProtocol?
     private var viewState = BehaviorRelay<state>(value: .none)
     private var mediaType : MediaType = .all
     private var mediaID : Int = 0
    
-    
     var stateObservable : Observable<state>   {
         return viewState.asObservable().observeOn(MainScheduler.asyncInstance)
     }
     
+    enum action {
+        case clickFavouriteButton(addToFavorite:Bool)
+        case clickWatchListButton(addToWatchList:Bool)
+    }
     
     enum state {
         case none
         case loadingMediaDetails(media:Media)
-        case favouriteButtonClicked
-        case addToListButtonClicked
+        case setFavoriteButton(favorite:Bool)
+        case setWatchListButton(watchList:Bool)
         case errorLoadingMedia(errorMessage:String)
     }
     
@@ -60,7 +62,7 @@ class MediaDetailsViewModel {
                return
           }
             
-            self.viewState.accept(.addToListButtonClicked)
+            self.viewState.accept(.setFavoriteButton(favorite: favorite))
         }
     }
     
@@ -72,7 +74,7 @@ class MediaDetailsViewModel {
               self.viewState.accept(.errorLoadingMedia(errorMessage: error?.localizedDescription ?? ""))
                return
           }
-          self.viewState.accept(.addToListButtonClicked)
+            self.viewState.accept(.setWatchListButton(watchList: watchList))
         }
     }
     
@@ -84,15 +86,10 @@ class MediaDetailsViewModel {
             
             if let watchList = watchList {
                 
-                guard let delegate = self.delegate else {
-                    return
-                }
-                
                 if watchList.contains(where: {$0.id == self.mediaID}) {
-                    delegate.setWatchListButtonColor(with: true)
-                }else {
-                    delegate.setWatchListButtonColor(with: false)
+                    self.viewState.accept(.setWatchListButton(watchList: true))
                 }
+
             }
         }
     }
@@ -104,30 +101,25 @@ class MediaDetailsViewModel {
             }
             
             if let favoriteMovies = favoriteMovies {
-                
-                guard let delegate = self.delegate else {
-                    return
-                }
-                
                 if favoriteMovies.contains(where: {$0.id == self.mediaID}) {
-                    delegate.setFavouriteButtonColor(with: true)
-                }else {
-                    delegate.setFavouriteButtonColor(with: false)
+                    self.viewState.accept(.setFavoriteButton(favorite: true))
                 }
             }
            
         }
     }
-}
-
-
-extension MediaDetailsViewModel: CardViewProtocol {
-    func clickFavouriteButton(media: Media, favorite: Bool) {
-        addMediaToFavorites(with: self.mediaType, and: self.mediaID, favorite: favorite)
+    
+    func onAction(action:action)   {
+        switch action {
+        case .clickFavouriteButton(let addToFavorite):
+            self.addMediaToFavorites(with: self.mediaType, and: self.mediaID, favorite: addToFavorite)
+            break
+        case .clickWatchListButton(let addToWatchList):
+            self.addMediaToWatchList(with: self.mediaType, and: self.mediaID, watchList: addToWatchList)
+            break
+        }
     }
     
-    func clickwatchListButton(media: Media, watchList: Bool) {
-        addMediaToWatchList(with: self.mediaType, and: self.mediaID, watchList: watchList)
-    }
-
+    
 }
+

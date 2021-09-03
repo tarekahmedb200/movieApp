@@ -25,8 +25,8 @@ class CardView:UIView {
     private var runningAnimations = [UIViewPropertyAnimator]()
     
     @IBOutlet weak var mediaImageView: UIImageView!
-    @IBOutlet weak var instructionLabel: UILabel!
-    @IBOutlet weak var viewHandler: UIView!
+  //  @IBOutlet weak var instructionLabel: UILabel!
+  //  @IBOutlet weak var viewHandler: UIView!
     @IBOutlet weak var mediaTitleLabel: UILabel!
     @IBOutlet weak var mediaDetailsLabel: UILabel!
     @IBOutlet weak var mediaDescriptionLabel: UITextView!
@@ -61,115 +61,109 @@ class CardView:UIView {
         cardView.frame = bounds
         addSubview(cardView)
         setupUI(with : media)
-        addGestureRecognizer()
+      //  addGestureRecognizer()
     }
     
     private func setupUI(with media:Media) {
-        self.instructionLabel.text = "Drag Up For More Details"
+        //self.instructionLabel.text = "Drag Up For More Details"
         self.mediaTitleLabel.text = media.mediaTitle
         self.mediaDetailsLabel.text = "runtime: \(media.mediaRunTimeFormmated)"
         self.mediaGenresLabel.text = "genres : \(media.mediaGenres)"
         
         self.mediaDescriptionLabel.text = media.overview
-        if let mediaPosterPath = media.posterPath {
-            UtitlyManager.shared.getPosterImage(with: mediaPosterPath) { (data, error) in
-                guard error == nil , let data = data else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    self.mediaImageView.image = UIImage(data: data)
-                }
-               
+        if let moviePosterPath = media.posterPath {
+            DispatchQueue.main.async {
+                self.mediaImageView.kf.setImage(with: movieDBURL.getPosterImage(path: moviePosterPath).url)
             }
         }
-        
+
         self.mediaImageView.addRadius(by: 10)
-        self.viewHandler.addRadius(by: 5)
+      //  self.viewHandler.addRadius(by: 5)
         self.addRadius(by: 20)
     }
     
     
-    private  func addGestureRecognizer() {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGestureRecognizer(recognizer:)))
-        self.viewHandler.addGestureRecognizer(panGestureRecognizer)
-    }
-        
-    @objc private func handlePanGestureRecognizer(recognizer:UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .began:
-            startInteractiveTransition(state: nextState, duration: 0.9)
-        case .changed:
-            let translation = recognizer.translation(in: self.viewHandler)
-            var fraction = translation.y / cardHeight
-            fraction = cardVisible ? fraction : -fraction
-            updateInteractiveTransition(fractionCompleted: fraction)
-        case .ended:
-            continueInteractiveTransition()
-        default:
-            break
-        }
-    }
-    
-    private func startInteractiveTransition(state:CardState,duration:TimeInterval) {
-        if runningAnimations.isEmpty {
-            animateTransitionIfNeeded(state: state, duration: duration)
-        }
-        
-        for animator in runningAnimations {
-            animator.pauseAnimation()
-            animationProgressWhenInterrupted = animator.fractionComplete
-        }
-    }
-    
-    private func updateInteractiveTransition(fractionCompleted:CGFloat) {
-        for animator in runningAnimations {
-            animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
-        }
-        
-    }
-    
-    private func continueInteractiveTransition() {
-        for animator in runningAnimations {
-            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-        }
-    }
-    
-    private func animateTransitionIfNeeded(state:CardState,duration:TimeInterval) {
-        if runningAnimations.isEmpty {
-            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
-                switch state {
-                 case .expanded:
-                    self.frame.origin.y =  self.parentViewController.view.frame.height / 4
-                 case .collapsed:
-                    self.frame.origin.y =  self.parentViewController.view.frame.height - cardHandleAreaHeight
-                }
-            }
-            
-            frameAnimator.addCompletion { _ in
-                self.cardVisible.toggle()
-                self.instructionLabel.text = self.cardVisible ? "Drag Down To Hide Details":"Drag Up For More Details"
-                self.runningAnimations.removeAll()
-            }
-            
-            frameAnimator.startAnimation()
-            runningAnimations.append(frameAnimator)
-            
-           
-            let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
-                            switch state {
-                            case .expanded:
-                                self.visualEffect.effect = UIBlurEffect(style: .dark)
-                            case .collapsed:
-                                self.visualEffect.effect = nil
-                            }
-                        }
-                        
-                        blurAnimator.startAnimation()
-                        runningAnimations.append(blurAnimator)
-            
-            
-        }
-    }
+//    private  func addGestureRecognizer() {
+//        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGestureRecognizer(recognizer:)))
+//        self.viewHandler.addGestureRecognizer(panGestureRecognizer)
+//    }
+//
+//    @objc private func handlePanGestureRecognizer(recognizer:UIPanGestureRecognizer) {
+//        switch recognizer.state {
+//        case .began:
+//            startInteractiveTransition(state: nextState, duration: 0.9)
+//        case .changed:
+//            let translation = recognizer.translation(in: self.viewHandler)
+//            var fraction = translation.y / cardHeight
+//            fraction = cardVisible ? fraction : -fraction
+//            updateInteractiveTransition(fractionCompleted: fraction)
+//        case .ended:
+//            continueInteractiveTransition()
+//        default:
+//            break
+//        }
+//    }
+//
+//    private func startInteractiveTransition(state:CardState,duration:TimeInterval) {
+//        if runningAnimations.isEmpty {
+//            animateTransitionIfNeeded(state: state, duration: duration)
+//        }
+//
+//        for animator in runningAnimations {
+//            animator.pauseAnimation()
+//            animationProgressWhenInterrupted = animator.fractionComplete
+//        }
+//    }
+//
+//    private func updateInteractiveTransition(fractionCompleted:CGFloat) {
+//        for animator in runningAnimations {
+//            animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
+//        }
+//
+//    }
+//
+//    private func continueInteractiveTransition() {
+//        for animator in runningAnimations {
+//            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+//        }
+//    }
+//
+//    private func animateTransitionIfNeeded(state:CardState,duration:TimeInterval) {
+//        if runningAnimations.isEmpty {
+//            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+//                switch state {
+//                 case .expanded:
+//                    self.frame.origin.y =  self.parentViewController.view.frame.height / 4
+//                 case .collapsed:
+//                    self.frame.origin.y =  self.parentViewController.view.frame.height - cardHandleAreaHeight
+//                }
+//            }
+//
+//            frameAnimator.addCompletion { _ in
+//                self.cardVisible.toggle()
+//                self.instructionLabel.text = self.cardVisible ? "Drag Down To Hide Details":"Drag Up For More Details"
+//                self.runningAnimations.removeAll()
+//            }
+//
+//            frameAnimator.startAnimation()
+//            runningAnimations.append(frameAnimator)
+//
+//
+//            let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+//                            switch state {
+//                            case .expanded:
+//                                self.visualEffect.effect = UIBlurEffect(style: .dark)
+//                            case .collapsed:
+//                                self.visualEffect.effect = nil
+//                            }
+//                        }
+//
+//                        blurAnimator.startAnimation()
+//                        runningAnimations.append(blurAnimator)
+//
+//
+//        }
+//    }
     
     
     
