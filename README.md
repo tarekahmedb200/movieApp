@@ -1,6 +1,8 @@
 # movieApp
 
 ## a simple movie app that uses moviedb.org API 
+### user must have an account on the moviedb.org in order to log in https://www.themoviedb.org/ , the app shows user the tredning / popular / top rated  movies or tv shows and the user can search for movies or shows , the user can add a movie or tv show to his favourites or watch list in the movie details screen , also the app allow the user to show his favourites or watch list movies in the other screens.  
+
 
 ## Built With Tools : 
 
