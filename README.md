@@ -8,6 +8,7 @@
 - UIKIt 
 - KingFisher
 - Rxswift 
+- moviedb.org API 
 
 ## Software Design Patterns Used : 
 - MVVM 
